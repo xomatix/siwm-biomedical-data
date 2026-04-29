@@ -1,8 +1,8 @@
 <?php
 
-function sanitize(string $value): string
+function sanitize(?string $value): string
 {
-    return htmlspecialchars($value, ENT_QUOTES, 'UTF-8');
+    return htmlspecialchars($value ?? '', ENT_QUOTES, 'UTF-8');
 }
 
 function redirect(string $url): void

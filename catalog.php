@@ -7,6 +7,7 @@ requireLogin();
 
 $pdo = getDB();
 $error = null;
+$currentUserId = getCurrentUserId();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['add_catalog'])) {
@@ -99,10 +100,11 @@ $unitsStmt = $pdo->query('SELECT id, name, symbol FROM units ORDER BY name ASC')
 $units = $unitsStmt->fetchAll();
 
 $catalogStmt = $pdo->query(
-    'SELECT c.id, c.name, c.description, u.name AS unit_name, u.symbol AS unit_symbol, c.created_by, c.created_at, usr.email AS creator_email
+    'SELECT c.id, c.name, c.description, u.name AS unit_name, u.symbol AS unit_symbol, c.created_by, c.created_at, usr.email AS creator_email, n.id AS norm_id
      FROM catalog c
      LEFT JOIN units u ON c.unit_id = u.id
      LEFT JOIN users usr ON c.created_by = usr.id
+     LEFT JOIN norms n ON c.id = n.catalog_id
      ORDER BY c.name ASC'
 );
 $catalogItems = $catalogStmt->fetchAll();
@@ -156,9 +158,10 @@ require_once __DIR__ . '/includes/header.php';
             <table>
                 <thead>
                     <tr>
-                        <th>Nazwa</th>
+                                <th>Nazwa</th>
                         <th>Opis</th>
                         <th>Jednostka</th>
+                        <th>Norma</th>
                         <th>Utworzone przez</th>
                         <th>Akcje</th>
                     </tr>
@@ -169,16 +172,22 @@ require_once __DIR__ . '/includes/header.php';
                             <td><?php echo sanitize($item['name']); ?></td>
                             <td><?php echo sanitize($item['description']); ?></td>
                             <td><?php echo sanitize($item['unit_name'] . ' (' . $item['unit_symbol'] . ')'); ?></td>
+                            <td><?php echo $item['norm_id'] ? 'Tak' : 'Brak'; ?></td>
                             <td><?php echo sanitize($item['creator_email'] ?? ''); ?></td>
                             <td>
-                                <?php if ($item['created_by'] === getCurrentUserId()): ?>
-                                    <a href="catalog.php?edit=<?php echo (int) $item['id']; ?>">Edytuj</a>
+                                <?php if ($item['created_by'] === $currentUserId): ?>
+                                    <a href="norms.php?catalog_id=<?php echo (int) $item['id']; ?>"><?php echo $item['norm_id'] ? 'Edytuj normę' : 'Ustaw normę'; ?></a>
+                                <?php else: ?>
+                                    <span>Brak uprawnień</span>
+                                <?php endif; ?>
+                                <?php if ($item['created_by'] === $currentUserId): ?>
+                                    | <a href="catalog.php?edit=<?php echo (int) $item['id']; ?>">Edytuj</a>
                                     <form method="post" action="catalog.php" style="display:inline;" onsubmit="return confirm('Usuń tę pozycję?');">
                                         <input type="hidden" name="catalog_id" value="<?php echo (int) $item['id']; ?>">
                                         <button type="submit" name="delete_catalog">Usuń</button>
                                     </form>
                                 <?php else: ?>
-                                    <span>Brak uprawnień</span>
+                                    | <span>Brak uprawnień</span>
                                 <?php endif; ?>
                             </td>
                         </tr>

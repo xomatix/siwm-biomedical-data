@@ -1,0 +1,464 @@
+﻿:root {
+  color-scheme: light;
+  --surface: #faf8ff;
+  --surface-dim: #d9d9e4;
+  --surface-bright: #faf8ff;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f3f3fd;
+  --surface-container: #ededf8;
+  --surface-container-high: #e7e7f2;
+  --surface-container-highest: #e1e2ec;
+  --on-surface: #191b23;
+  --on-surface-variant: #434654;
+  --inverse-surface: #2e3038;
+  --inverse-on-surface: #f0f0fb;
+  --outline: #737685;
+  --outline-variant: #c3c6d6;
+  --surface-tint: #0c56d0;
+  --primary: #003d9b;
+  --on-primary: #ffffff;
+  --primary-container: #0052cc;
+  --on-primary-container: #c4d2ff;
+  --secondary: #00696c;
+  --on-secondary: #ffffff;
+  --secondary-container: #81f1f5;
+  --on-secondary-container: #006e71;
+  --tertiary: #7b2600;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #a33500;
+  --on-tertiary-container: #ffc6b2;
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+  --background: #faf8ff;
+  --on-background: #191b23;
+  --border: #d8dbe8;
+  --surface-border: rgba(115, 118, 133, 0.18);
+  --shadow: 0 16px 40px rgba(20, 34, 102, 0.08);
+  --radius: 10px;
+  --radius-sm: 8px;
+  --spacing: 24px;
+  --font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(12, 86, 208, 0.09),
+      transparent 35%
+    ),
+    var(--background);
+  color: var(--on-background);
+  font-family: var(--font-family);
+  line-height: 1.6;
+}
+
+img,
+video,
+canvas {
+  max-width: 100%;
+  display: block;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+
+  &#confirm_password {
+    margin-bottom: 10px;
+  }
+}
+
+button {
+  cursor: pointer;
+}
+
+body > header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(250, 248, 255, 0.96);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(115, 118, 133, 0.12);
+}
+
+header nav {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+header nav a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+header nav a:hover,
+header nav a:focus-visible {
+  background: rgba(0, 61, 155, 0.08);
+  color: var(--primary-container);
+  transform: translateY(-1px);
+}
+
+main {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 32px 24px 48px;
+  height: 100%;
+}
+
+footer {
+  margin-top: auto;
+  padding: 20px 24px;
+  text-align: center;
+  color: var(--on-surface-variant);
+  font-size: 0.95rem;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0 0 16px;
+  line-height: 1.15;
+}
+
+h1 {
+  font-size: clamp(2.1rem, 2.2vw, 3.2rem);
+  letter-spacing: -0.04em;
+}
+
+h2 {
+  font-size: clamp(1.4rem, 1.6vw, 2rem);
+}
+
+p {
+  margin: 0 0 16px;
+}
+
+a {
+  color: var(--secondary);
+}
+
+a:hover,
+a:focus-visible {
+  text-decoration: none;
+}
+
+section {
+  margin-bottom: 32px;
+}
+
+.card,
+.auth-form,
+.measurements-page,
+.catalog-page,
+.units-page,
+.norms-page,
+.statistics-page {
+  background: var(--surface-container);
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 32px;
+}
+
+.auth-form,
+.measurement-form,
+.measurement-list,
+.catalog-form,
+.catalog-list,
+.unit-form,
+.unit-list,
+.norm-form,
+.norms-list,
+.stats-form,
+.stats-summary,
+.stats-details {
+  padding: 10px;
+  background: var(--surface-container);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--surface-border);
+  margin-bottom: 10px;
+}
+
+.auth-form,
+.dashboard,
+.measurements-page,
+.catalog-page,
+.units-page,
+.norms-page,
+.statistics-page {
+  width: 100%;
+}
+
+.auth-form {
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 36px;
+}
+
+.form-grid,
+.stats-form {
+  display: grid;
+  gap: 18px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--on-surface-variant);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+input[type="datetime-local"],
+select,
+textarea {
+  width: 100%;
+  min-height: 28px;
+  padding: 8px 12px;
+  border: 1px solid var(--outline);
+  border-radius: 10px;
+  background: var(--surface-bright);
+  color: var(--on-surface);
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+
+  &#unit_id {
+    margin-bottom: 10px;
+  }
+}
+
+textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(0, 61, 155, 0.08);
+}
+
+button,
+.button-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 18px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  font-weight: 700;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+button {
+  background: var(--primary);
+  color: var(--on-primary);
+  border-color: transparent;
+}
+
+button:hover,
+button:focus-visible {
+  transform: translateY(-1px);
+}
+
+.button-secondary {
+  background: transparent;
+  color: var(--primary);
+  border-color: var(--outline);
+  text-decoration: none;
+}
+
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: #f3f5fb;
+  color: var(--primary);
+  text-decoration: none;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+.icon-button svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.icon-button.delete {
+  color: #ba1a1a;
+}
+
+.icon-button + .icon-button {
+  margin-left: 8px;
+}
+
+td {
+  vertical-align: top;
+}
+
+table tr td:last-child {
+  display: flex;
+}
+
+td > a,
+td > form > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 0 8px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+td > a {
+  background: rgba(0, 61, 155, 0.08);
+  color: var(--primary);
+  border-color: transparent;
+}
+
+td > form {
+  display: inline;
+  margin: 0;
+}
+
+td > form > button {
+  background: var(--primary);
+  color: var(--on-primary);
+}
+
+td > a + span,
+td > a + a,
+td > a + form,
+td > form + a,
+button + a,
+a + button {
+  margin-left: 8px;
+}
+
+.error-message,
+.info-message {
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.error-message {
+  background: var(--error-container);
+  color: var(--on-error-container);
+  border: 1px solid rgba(186, 26, 26, 0.18);
+}
+
+.info-message {
+  background: rgba(0, 105, 108, 0.12);
+  color: #003c3d;
+  border: 1px solid rgba(0, 105, 108, 0.18);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 0.95rem;
+}
+
+th,
+td {
+  padding: 16px 14px;
+  border-bottom: 1px solid var(--surface-border);
+  text-align: left;
+  vertical-align: middle;
+}
+
+td a {
+}
+
+th {
+  background: var(--surface-bright);
+  color: var(--on-surface-variant);
+  font-weight: 700;
+}
+
+tbody tr:hover {
+  background: rgba(12, 86, 208, 0.04);
+}
+
+tbody tr.out-of-norm {
+  background: rgba(186, 26, 26, 0.08);
+}
+
+tbody tr.out-of-norm td {
+  color: #781616;
+}
+
+.readonly-field {
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--outline);
+  background: var(--surface-bright);
+  color: var(--on-surface);
+}
+
+nav a {
+  white-space: nowrap;
+}
+
+.section-grid {
+  display: grid;
+  gap: 24px;
+}

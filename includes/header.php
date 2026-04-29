@@ -8,7 +8,7 @@ require_once __DIR__ . '/helpers.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>System biomedyczny</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 <header>

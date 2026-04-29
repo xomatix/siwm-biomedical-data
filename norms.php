@@ -155,7 +155,13 @@ require_once __DIR__ . '/includes/header.php';
                             <td><?php echo sanitize($item['description'] ?? ''); ?></td>
                             <td>
                                 <?php if ($item['created_by'] === $currentUserId): ?>
-                                    <a href="norms.php?catalog_id=<?php echo (int) $item['catalog_id']; ?>"><?php echo $item['min_value'] !== null || $item['max_value'] !== null ? 'Edytuj' : 'Ustaw'; ?></a>
+                                    <?php if ($item['min_value'] !== null || $item['max_value'] !== null): ?>
+                                        <a href="norms.php?catalog_id=<?php echo (int) $item['catalog_id']; ?>" class="icon-button" title="Edytuj" aria-label="Edytuj">
+                                            <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M2 14.5V18h3.5l9.8-9.8-3.5-3.5L2 14.5Z"/><path d="M17.7 4.8a1 1 0 0 0 0-1.4l-1-1a1 1 0 0 0-1.4 0l-1.8 1.8 2.5 2.5 1.8-1.8Z"/></svg>
+                                        </a>
+                                    <?php else: ?>
+                                        <a href="norms.php?catalog_id=<?php echo (int) $item['catalog_id']; ?>">Ustaw</a>
+                                    <?php endif; ?>
                                 <?php else: ?>
                                     <span>Brak uprawnień</span>
                                 <?php endif; ?>
